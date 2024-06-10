@@ -26,14 +26,16 @@ class NoteScreen extends StatelessWidget {
                 TextField(
                   controller: priceController,
                   decoration: InputDecoration(labelText: 'Price'),
+                  keyboardType: TextInputType.number,
                 ),
                 TextField(
                   controller: amountController,
                   decoration: InputDecoration(labelText: 'Amount'),
+                  keyboardType: TextInputType.number,
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    noteController.addNote(
+                  onPressed: () async {
+                    await noteController.addNote(
                       productNameController.text,
                       double.parse(priceController.text),
                       int.parse(amountController.text),
@@ -56,8 +58,8 @@ class NoteScreen extends StatelessWidget {
                             '\$${noteController.notes[index].price}\nAmount: ${noteController.notes[index].amount}'),
                         trailing: IconButton(
                           icon: Icon(Icons.delete, color: Colors.red),
-                          onPressed: () {
-                            noteController
+                          onPressed: () async {
+                            await noteController
                                 .deleteNote(noteController.notes[index].id);
                           },
                         ),

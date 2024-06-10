@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class QuizScreen extends StatefulWidget {
@@ -90,10 +91,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
   void _submitScore() async {
     // TODO: Implement the API call to submit the score
-    // For example:
     // await ApiService.submitQuizResult(_score);
-
-    // Then navigate back to the home screen
     Navigator.of(context).pop();
   }
 
@@ -121,7 +119,6 @@ class _QuizScreenState extends State<QuizScreen> {
                     onTap: () => _answerQuestion(answer['score'] as int),
                   );
                 }).toList(),
-                
               ],
             )
           : Center(

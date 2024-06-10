@@ -4,7 +4,6 @@ import '../controllers/plan_controller.dart';
 
 class PlansScreen extends StatelessWidget {
   final titleController = TextEditingController();
-
   final descriptionController = TextEditingController();
 
   @override

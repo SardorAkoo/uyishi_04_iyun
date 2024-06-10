@@ -1,7 +1,7 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:uyishi/database/sql_helper.dart';
+import '../models/note.dart';
 
-import '../../models/note.dart';
-import '../../services/api_service.dart';
 
 class NoteController with ChangeNotifier {
   List<Note> _notes = [];
@@ -9,15 +9,21 @@ class NoteController with ChangeNotifier {
   List<Note> get notes => _notes;
 
   NoteController() {
-    fetchNotes();
+    _loadNotes();
   }
 
-  void fetchNotes() async {
-    _notes = await ApiService.fetchNotes();
+  Future<void> _loadNotes() async {
+    final dataList = await SQLHelper.getNotes();
+    _notes = dataList.map((item) => Note(
+      id: item['id'],
+      productName: item['productName'],
+      price: item['price'],
+      amount: item['amount'],
+    )).toList();
     notifyListeners();
   }
 
-  void addNote(String productName, double price, int amount) async {
+  Future<void> addNote(String productName, double price, int amount) async {
     final newNote = Note(
       id: DateTime.now().toString(),
       productName: productName,
@@ -26,12 +32,14 @@ class NoteController with ChangeNotifier {
     );
     _notes.add(newNote);
     notifyListeners();
-    await ApiService.saveNote(newNote);
+    await SQLHelper.createNote(newNote.id, productName, price, amount);
+    await _loadNotes(); // Reload notes from database
   }
 
-  void deleteNote(String id) async {
+  Future<void> deleteNote(String id) async {
     _notes.removeWhere((note) => note.id == id);
     notifyListeners();
-    await ApiService.deleteNote(id);
+    await SQLHelper.deleteNote(id);
+    await _loadNotes(); // Reload notes from database
   }
 }

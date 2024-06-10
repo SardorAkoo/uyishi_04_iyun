@@ -11,10 +11,10 @@ class CourseVideoPage extends StatefulWidget {
 
 class _CourseVideoPageState extends State<CourseVideoPage> {
   YoutubePlayerController _controller = YoutubePlayerController(
-    initialVideoId: 'https://youtu.be/C6nTXjQFVKI?si=gExcTDDt0-9EFGRg',
+    initialVideoId: 'M5THtQr2reI',
     flags: YoutubePlayerFlags(
       autoPlay: true,
-      mute: true,
+      // mute: true,
     ),
   );
 

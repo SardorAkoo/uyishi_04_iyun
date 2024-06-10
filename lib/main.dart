@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         '/courses': (context) => CourseScreen(),
         '/settings': (context) =>
             SettingsScreen(toggleTheme: themeNotifier.toggleTheme),
-        '/quiz': (context) => QuizScreen(), // Register the QuizScreen
+        '/quiz': (context) => QuizScreen(),
       },
     );
   }
